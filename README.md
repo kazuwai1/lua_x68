@@ -26,7 +26,7 @@ After building:
 
 copy lua.x and luac.x to the any directory included in "%PATH%".
 
-copy lualib.l to directory of "%LIB%" directory.
+copy lualib.l to "%LIB%" directory.
 
 copy below header files to "%INCLUDE%" directory.
 
