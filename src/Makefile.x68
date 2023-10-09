@@ -53,7 +53,7 @@ all_o: $(ALL_O)
 all_a: $(ALL_A)
 
 $(LUA_T): $(LUA_O) $(LUA_A)
-	$(CC) -o $@ $(LDFLAGS) $(LUA_O) $(LUA_A) $(LIBS)
+	$(CC) -z-heap=1048576 -o $@ $(LDFLAGS) $(LUA_O) $(LUA_A) $(LIBS)
 
 $(LUAC_T): $(LUAC_O) $(LUA_A)
 	$(CC) -o $@ $(LDFLAGS) $(LUAC_O) $(LUA_A) $(LIBS)
