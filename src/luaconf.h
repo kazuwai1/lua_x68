@@ -18,6 +18,7 @@
 #ifdef X68_XC
 #define LUA_USE_C89
 #define LUA_NOBUILTIN
+#define LUA_32BITS	0
 
 typedef volatile int	sig_atomic_t;
 
@@ -140,7 +141,9 @@ typedef volatile int	sig_atomic_t;
 /*
 @@ LUA_32BITS enables Lua with 32-bit integers and 32-bit floats.
 */
+#ifndef X68_XC
 #define LUA_32BITS	0
+#endif
 
 
 /*
@@ -438,10 +441,15 @@ typedef volatile int	sig_atomic_t;
 ** MAXINTEGER may not have one, and therefore its conversion to float
 ** may have an ill-defined value.)
 */
+#ifndef X68_XC
 #define lua_numbertointeger(n,p) \
   ((n) >= (LUA_NUMBER)(LUA_MININTEGER) && \
    (n) < -(LUA_NUMBER)(LUA_MININTEGER) && \
       (*(p) = (LUA_INTEGER)(n), 1))
+#else /* for X68000 */
+#define lua_numbertointeger(n,p) \
+  (*(p) = (LUA_INTEGER)(n), 1)
+#endif
 
 
 /* now the variable definitions */
@@ -814,4 +822,3 @@ typedef volatile int	sig_atomic_t;
 
 #endif
 
-
