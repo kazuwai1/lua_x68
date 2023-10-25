@@ -45,4 +45,5 @@ Lua 5.4.6 を X680x0向けにポーティングしてみました。X-BASICの�
 Lua for X680x0 への機能追加にあたって、MicroPython for X68k のソースコードを非常に参考にさせていただいております。
 
 ## ライセンス
-LuaはMITライセンスで配布されています。Lua for X680x0の独自改変部分についても同様の扱いとします。
+Luaは下記のようにMITライセンスで配布されています。Lua for X680x0の独自改変部分についても同様の扱いとします。  
+[Copyright © 1994–2023 Lua.org, PUC-Rio.](https://www.lua.org/license.html)
