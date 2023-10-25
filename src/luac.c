@@ -122,7 +122,11 @@ static int doargs(int argc, char* argv[])
  }
  if (version)
  {
+#ifndef X68_XC
   printf("%s\n",LUA_COPYRIGHT);
+#else
+  printf("%s%s\n",LUA_COPYRIGHT, LUA_X68K_VERSION);
+#endif
   if (version==argc-1) exit(EXIT_SUCCESS);
  }
  return i;
@@ -728,4 +732,3 @@ static void PrintFunction(const Proto* f, int full)
  if (full) PrintDebug(f);
  for (i=0; i<n; i++) PrintFunction(f->p[i],full);
 }
-

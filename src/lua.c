@@ -98,6 +98,11 @@ static void print_usage (const char *badoption) {
   "  -W        turn warnings on\n"
   "  --        stop handling options\n"
   "  -         stop handling options and execute stdin\n"
+#ifdef X68_XC
+  "\nthe following options for X680x0 only:\n"
+  "  -M=nnnn   allocate additional nnnnKbytes to heap memory\n"
+  "  -MM       allocate all remaining memory to heap memory\n\n"
+#endif
   ,
   progname);
 }
@@ -166,6 +171,9 @@ static int docall (lua_State *L, int narg, int nres) {
 
 static void print_version (void) {
   lua_writestring(LUA_COPYRIGHT, strlen(LUA_COPYRIGHT));
+#ifdef X68_XC
+  lua_writestring(LUA_X68K_VERSION, strlen(LUA_X68K_VERSION));
+#endif
   lua_writeline();
 }
 
@@ -277,6 +285,9 @@ static int handle_script (lua_State *L, char **argv) {
 static int collectargs (char **argv, int *first) {
   int args = 0;
   int i;
+#ifdef X68_XC
+  int x68k_incsize;
+#endif
   if (argv[0] != NULL) {  /* is there a program name? */
     if (argv[0][0])  /* not empty? */
       progname = argv[0];  /* save it */
@@ -322,6 +333,20 @@ static int collectargs (char **argv, int *first) {
             return has_error;  /* no next argument or it is another option */
         }
         break;
+#ifdef X68_XC	/* for X68000 */
+      case 'M': /* increase heap memory for X68000 */
+        if (argv[i][2] == 'M' && argv[i][3] == '\0') { /* -MM */
+          allmem();
+        } else if (argv[i][2] == '=') { /* -M=n */
+          x68k_incsize = atoi( &(argv[i][3]) );
+          if (x68k_incsize > 0) {
+            if ( (void *)-1 == sbrk( x68k_incsize * 1024 ) ) {
+              return has_error; /* invalid option */
+            }
+          }
+        }
+        break;
+#endif
       default:  /* invalid option */
         return has_error;
     }

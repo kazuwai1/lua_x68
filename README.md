@@ -1,46 +1,43 @@
 # lua_x68
-This is Lua 5.4.6 for X68000(Japanese old computer).
+Lua 5.4.6 を X680x0向けにポーティングしてみました。X-BASICの一部の関数を取り込んだりしています。
 
+## インストール
+* "lua.x" と "luac.x"を環境変数PATHに含まれるディレクトリにコピー
+* "lualib.l" を環境変数LIBで指定するディレクトリにコピー
+* 以下のヘッダファイルを環境変数INCLUDEで指定するディレクトリにコピー
+    * lauxlib.h
+    * lua.h
+    * lua.hpp
+    * luaconf.h
+    * lualib.h
 
-[build environment]
+## 起動と起動オプション
+* lua.xを実行すると対話環境が起動します。luac.xはコンパイル用のフロントエンドです。
+* 対話環境を終了するには "os.exit()"と入力するか、ctrl-zを入力してください。
+* 起動時に指摘できるオプションは無効なオプションを指定すると見ることができます("lua -z"等)
+* X680x0向けに以下のオプションを追加で実装しています。
+    * -M=nnnn : ヒープメモリをnnnnKbytes追加で確保して起動します
+    * -MM : ヒープメモリを可能なだけ確保して起動します。
 
-cc: gcc.x
+## X680x0向け独自拡張について
+"x68k.～"という関数でX-BASICのオーディオ・グラフィック・スプライト・マウス・ジョイスティックに関する処理を実装しています。詳細はx68klib.txtを参照してください。
 
-as: has.x
+## r2-->r3の主な修正点
+* -M/-MMオプションを実装しました
+* X-BASIC系の関数を実装しました。
+* 環境変数LUA_PATH/LUA_CPATHが定義されてない場合のデフォルト値をLinuxスタイルからWindowsスタイルに変更しました。合わせてディレクトリのセパレータキャラクターを'/'から'\\\\'に変更しています。
 
-lk: hlk.x
+## ビルド環境
+以下のツール／ライブラリでビルドしています。
+* cc: gcc.x
+* as: has.x
+* lk: hlk.x
+* make: gnu make
+* lib: XC2.0 libraryおよび gccで必要になるライブラリ
 
-lib: XC2.0 library
+## ビルド
+* "src"ディレクトリの中で "gmake -f Makefile.x68" でビルドできます。
+* "Makefile2.x68"はgcc2環境向けです。
+* IOCSLIB.Hのstruct INQUIRY構造体の記述がgccではエラーになる場合があります。その場合はlibcのcdecl.hの _ZEROARRAY および sys/scsi.h内の struct _inquiry の記述を参考にヘッダファイルを修正する必要があります
+* gcc2環境でビルドする場合、lvm.c内で LUA_USE_JUMPTABLE を有効にすることで処理が若干高速になります。
 
-make: gnu make
-
-
-[build]
-
-Please type "gmake -f Makefile.x68"  in "src" directory when you want to build.
-
-
-[install]
-
-After building:
-
-copy lua.x and luac.x to the any directory included in "%PATH%".
-
-copy lualib.l to "%LIB%" directory.
-
-copy below header files to "%INCLUDE%" directory.
-
- lauxlib.h
- 
- lua.h
- 
- lua.hpp
- 
- luaconf.h
- 
- lualib.h
- 
-
-[Tips for first time use]
-
-To exit from lua, use "os.exit()" or type ctrl-z.

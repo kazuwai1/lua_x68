@@ -16,6 +16,8 @@
 #endif
 
 #ifdef X68_XC
+#define LUA_X68K_VERSION " (for X680x0 r3)"
+#define LUA_USE_X68KLIB
 #define LUA_USE_C89
 #define LUA_NOBUILTIN
 #define LUA_32BITS	0
@@ -218,7 +220,7 @@ typedef volatile int	sig_atomic_t;
 */
 
 #define LUA_VDIR	LUA_VERSION_MAJOR "." LUA_VERSION_MINOR
-#if defined(_WIN32)	/* { */
+#if defined(_WIN32) || defined(X68_XC)	/* { */
 /*
 ** In Windows, any exclamation mark ('!') in the path is replaced by the
 ** path of the directory of the executable file of the current process.
@@ -270,7 +272,7 @@ typedef volatile int	sig_atomic_t;
 */
 #if !defined(LUA_DIRSEP)
 
-#if defined(_WIN32)
+#if defined(_WIN32) || defined(X68_XC)
 #define LUA_DIRSEP	"\\"
 #else
 #define LUA_DIRSEP	"/"
@@ -448,7 +450,9 @@ typedef volatile int	sig_atomic_t;
       (*(p) = (LUA_INTEGER)(n), 1))
 #else /* for X68000 */
 #define lua_numbertointeger(n,p) \
-  (*(p) = (LUA_INTEGER)(n), 1)
+  ((n) >= -2147483648.0 && \
+   (n) < 2147483648.0 && \
+      (*(p) = (LUA_INTEGER)(n), 1))
 #endif
 
 
@@ -599,6 +603,14 @@ typedef volatile int	sig_atomic_t;
 
 /* }================================================================== */
 
+#ifdef X68_XC
+/*
+static inline int lua_numbertointeger( LUA_NUMBER n, LUA_INTEGER *p ) {
+	const LUA_INTEGER tmp = LUA_MININTEGER;
+	return  (n >= (LUA_NUMBER)tmp) && (n < -(LUA_NUMBER)tmp) && (*p=(LUA_INTEGER)n, 1); 
+}
+*/
+#endif
 
 /*
 ** {==================================================================

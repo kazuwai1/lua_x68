@@ -43,7 +43,7 @@
 #endif
 #endif
 
-/* added for X68000 */
+/* added for X68000: if you want to use jumptable, use gcc2 or later */
 #undef LUA_USE_JUMPTABLE
 #define LUA_USE_JUMPTABLE	0
 
@@ -1905,4 +1905,3 @@ void luaV_execute (lua_State *L, CallInfo *ci) {
 }
 
 /* }================================================================== */
-

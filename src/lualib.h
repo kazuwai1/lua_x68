@@ -44,6 +44,10 @@ LUAMOD_API int (luaopen_debug) (lua_State *L);
 #define LUA_LOADLIBNAME	"package"
 LUAMOD_API int (luaopen_package) (lua_State *L);
 
+#ifdef LUA_USE_X68KLIB
+#define LUA_X68KNAME	"x68k"
+LUAMOD_API	int (luaopen_x68k) (lua_State *L);
+#endif
 
 /* open all previous libraries */
 LUALIB_API void (luaL_openlibs) (lua_State *L);

@@ -30,4 +30,6 @@ lstrlib.o
 ltablib.o
 lutf8lib.o
 linit.o
-
+lx68lib.o
+lx68lib2.o
+

@@ -1,0 +1,144 @@
+--------------------------------------
+  X680x0向け独自拡張関数について
+--------------------------------------
+
+X680x0向けにいくつかの関数を実装しました。独自関数は名前が "x68k.～"になります。
+使い方はX-BASICの同名の関数とだいたい一緒です。
+以下に一覧と相違点を示します。
+
+◎雑多なもの
+・x68k.crtmod( crtmode [, flag] )
+  mode : IOCS CRTMOD の画面モードと同じです。-1を指定すると現在の mode を返します。
+  flag : 1 を指定すると CRTMOD設定後に G_CLR_ON を実行します。0 を指定するとG＿CLR＿ONを実行しません。flagを省略した場合は 0 を指定したのと同じ動作になります。
+・x68k.curon()
+　IOCSLIB の B_CURON() と同様です。
+・x68k.curoff()
+　IOCSLIB の B_CUROFF() と同様です。
+・x68k.locate( x, y )
+　X-BASIC の locate()と同様ですがカーソルスイッチの設定はできません。
+・ x68k.cls()
+　X-BASICの cls と同様です。
+・ x68k.color( n )
+　X-BASICの color と同様です。
+・x68k.vsync()
+　vsyncを一回待ちます。
+・x68k.SP_REGST( no, mode, x, y, code, prw )
+　IOCSLIB の SP_REGST()を呼び出します。
+　mode が 0 だと vsync を待って描画します。 1 だと vsync を待たずに描画します。
+
+◎オーディオ(PCM)機能
+*オーディオ機能を使用する場合、PCMデバイスドライバが組み込まれている必要があります。
+・x68.a_rec( size, rate )
+  以下のように使用することで、dat にサンプリングデータを取得します。datは文字列型のデータです。
+　　dat = x68k.a_rec( size, rate )
+　size, rate は XCのa_rec()関数と同様です。
+・ x68k.a_stat() / x68k.a_end() / x68k.a_stop() / x68k.a_cont()
+　それぞれ XC の a_stat() / a_end() / a_stop() / a_cont() と同様です。
+・x68k.a_play( dat, size, rate, mode, length )
+　XC の a_play()と同様です。
+
+◎グラフィック機能
+・x68k.apage( page )
+　X-BASIC の apage() と同様です。
+・x68k.box( x1, y1, x2, y2, p [,style] )
+　X-BASIC の box() と同様です。styleは省略可能です。
+・x68k.circle( x, y, r, p, s, e, hv )
+　X-BASIC の circle() と同様です。
+・x68k.contrast(  i )
+　X-BASIC の contrast() と同様です。
+・x68k.fill( x1, y1, x2, y2, p )
+　X-BASIC の fill() と同様です。
+・x68k.get( x1, y1, x2, y2, size )
+　以下のように使用します。datに読み込んだ画像データが格納されます。dat は文字列型データになります。
+　dat = x68k.get( x1, y1, x2, y2, size )
+　各パラメータの意味は　XC の get() と同様です。
+・x68k.home( page, x, y )
+　X-BASIC の home() と同様です。
+・x68k.hsv( h, s, v )
+　X-BASIC の hsv() と同様です。
+・x68k.line( x1, y1, x2, y2, p [,style] )
+　X-BASIC の line() と同様です。style は省略可能です。
+・x68k.paint( x, y, p )
+　X-BASIC の paint() と同様です。
+・x68k.palet( p, c )
+　X-BASIC の palet() と同様です。
+・x68k.point( x, y )
+　X-BASIC の point() と同様です。
+・x68k.pset( x, y, c )
+　X-BASIC の pset() と同様です。
+・x68k.rgb( r, g, b )
+　X-BASIC の rgb() と同様です。
+・x68k.vpage( i )
+　X-BASIC の vpage() と同様です。
+・x68k.window( x1, y1, x2, y2 )
+　X-BASIC の window() と同様です。
+・x68k.wipe()
+　X-BASIC の wipe() と同様です。
+・x68k.put( x1, y1, x2, y2, dat, size )
+　XC の put()と同様です。
+・x68k.symbol( x, y, st, h, v, mo, p, an )
+　X-BASIC の symbol() と同様です。
+
+◎マウス機能
+・x68k.mouse( i )
+　X-BASIC の mouse() と同様です。
+・x68k.msarea( x1, y1, x2, y2 )
+　X-BASIC の msarea() と同様です。
+・x68k.msbtn( n, b, t )
+　X-BASIC の msbtn() と同様です。
+・x68k.mspos()
+　以下のように使用します。
+　x, y = x68k.mspos()
+・x68k.msstat()
+　以下のように使用します。
+　dx, dy, bl, br = x68k.msstat()
+・x68k.setmspos( x, y )
+　X-BASIC の setmspos() と同様です。
+
+◎スプライト機能
+・x68k.sp_clr( cd1, cd2 )
+　X-BASIC の sp_clr() と同様です。
+・x68k.sp_color( p, c [, pb] )
+　X-BASIC の sp_color() と同様です。pbは省略すると1を指定したことになります。
+・x68k.sp_disp( ch )
+　X-BASIC の sp_disp() と同様です。
+・x68k.sp_move( s, x, y, cd )
+　X-BASIC の sp_move() と同様です。
+・x68k.sp_off( s1, s2 )
+　X-BASIC の sp_off() と同様です。
+・x68k.sp_on( s1, s2 )
+　X-BASIC の sp_on() と同様です。
+・x68k.sp_pat( cd, sz )
+　以下のように使用します。datは文字列型のデータになります。
+　dat = x68k.sp_pat( cd, sz )
+・x68k.sp_init()
+　X-BASIC の sp_init() と同様です。
+・x68k.sp_set( c, c1, c2, pcode, prty )
+　X-BASIC の sp_set() と同様です。
+・x68k.sp_stat( sp_sel_mode )
+　X-BASIC の sp_stat() と同様です。
+・x68k.bg_scroll( bg_no, x, y )
+　X-BASIC の bg_scroll() と同様です。
+・x68k.bg_set( bg_no, t_page, disp )
+　X-BASIC の bg_set() と同様です。
+・x68k.bg_stat( bg_no, sel_mode )
+　X-BASIC の bg_stat() と同様です。
+・x68k.bg_fill( t_page, pattern )
+　X-BASIC の bg_fill() と同様です。
+・x68k.bg_put( t_page, xpos, ypos, pattern )
+　X-BASIC の bg_put() と同様です。
+・x68k.bg_get( t_page, xpos, ypos )
+　X-BASIC の bg_get() と同様です。
+・x68k.sp_def( cd, ca, psize )
+　X-BASIC の sp_def() と同様です。
+
+◎ジョイスティック関連
+・x68k.stick( stickno )
+　X-BASIC の stick() と同様です。
+・x68k.strig( no )
+　X-BASIC の strig() と同様です。
+
+
+
+
+
