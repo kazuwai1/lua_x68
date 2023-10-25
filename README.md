@@ -41,3 +41,8 @@ Lua 5.4.6 を X680x0向けにポーティングしてみました。X-BASICの�
 * IOCSLIB.Hのstruct INQUIRY構造体の記述がgccではエラーになる場合があります。その場合はlibcのcdecl.hの _ZEROARRAY および sys/scsi.h内の struct _inquiry の記述を参考にヘッダファイルを修正する必要があります
 * gcc2環境でビルドする場合、lvm.c内で LUA_USE_JUMPTABLE を有効にすることで処理が若干高速になります。
 
+## 謝辞
+Lua for X680x0 への機能追加にあたって、MicroPython for X68k のソースコードを非常に参考にさせていただいております。
+
+## ライセンス
+LuaはMITライセンスで配布されています。Lua for X680x0の独自改変部分についても同様の扱いとします。
