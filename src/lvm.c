@@ -36,16 +36,14 @@
 ** and compatible compilers.
 */
 #if !defined(LUA_USE_JUMPTABLE)
-#if defined(__GNUC__)
+#if defined(__GNUC__) && (__GNUC__ >= 2)
+/* gcc 1.xx : not support "&&label" */
 #define LUA_USE_JUMPTABLE	1
 #else
 #define LUA_USE_JUMPTABLE	0
 #endif
 #endif
 
-/* added for X68000: if you want to use jumptable, use gcc2 or later */
-#undef LUA_USE_JUMPTABLE
-#define LUA_USE_JUMPTABLE	0
 
 /* limit for table tag-method chains (to avoid infinite loops) */
 #define MAXTAGLOOP	2000
@@ -380,9 +378,9 @@ static int l_strcmp (const TString *ls, const TString *rs) {
   const char *r = getstr(rs);
   size_t lr = tsslen(rs);
   for (;;) {  /* for each segment */
-#ifndef X68_XC
+#if !defined(human68k)
     int temp = strcoll(l, r);
-#else
+#else /* X68000 */
     int temp = strcmp(l, r);
 #endif
     if (temp != 0)  /* not equal? */

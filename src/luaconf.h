@@ -11,16 +11,11 @@
 #include <limits.h>
 #include <stddef.h>
 
-#ifndef X68_XC
-#define X68_XC
-#endif
-
-#ifdef X68_XC
-#define LUA_X68K_VERSION " (for X680x0 r3)"
+#if defined(human68k)
+#define LUA_X68K_VERSION " (for X680x0 r4)"
 #define LUA_USE_X68KLIB
 #define LUA_USE_C89
 #define LUA_NOBUILTIN
-#define LUA_32BITS	0
 
 typedef volatile int	sig_atomic_t;
 
@@ -31,7 +26,7 @@ typedef volatile int	sig_atomic_t;
 #define LC_MONETARY	3
 #define LC_NUMERIC	4
 #define LC_TIME	5
-#endif
+#endif	/* (human68k) */
 
 /*
 ** ===================================================================
@@ -143,9 +138,7 @@ typedef volatile int	sig_atomic_t;
 /*
 @@ LUA_32BITS enables Lua with 32-bit integers and 32-bit floats.
 */
-#ifndef X68_XC
 #define LUA_32BITS	0
-#endif
 
 
 /*
@@ -220,7 +213,7 @@ typedef volatile int	sig_atomic_t;
 */
 
 #define LUA_VDIR	LUA_VERSION_MAJOR "." LUA_VERSION_MINOR
-#if defined(_WIN32) || defined(X68_XC)	/* { */
+#if defined(_WIN32) || defined(human68k)	/* { */
 /*
 ** In Windows, any exclamation mark ('!') in the path is replaced by the
 ** path of the directory of the executable file of the current process.
@@ -272,7 +265,7 @@ typedef volatile int	sig_atomic_t;
 */
 #if !defined(LUA_DIRSEP)
 
-#if defined(_WIN32) || defined(X68_XC)
+#if defined(_WIN32) || defined(human68k)
 #define LUA_DIRSEP	"\\"
 #else
 #define LUA_DIRSEP	"/"
@@ -443,7 +436,7 @@ typedef volatile int	sig_atomic_t;
 ** MAXINTEGER may not have one, and therefore its conversion to float
 ** may have an ill-defined value.)
 */
-#ifndef X68_XC
+#if !defined(human68k)
 #define lua_numbertointeger(n,p) \
   ((n) >= (LUA_NUMBER)(LUA_MININTEGER) && \
    (n) < -(LUA_NUMBER)(LUA_MININTEGER) && \
@@ -509,7 +502,6 @@ typedef volatile int	sig_atomic_t;
 #error "numeric float type not defined"
 
 #endif					/* } */
-
 
 
 /*
@@ -603,7 +595,7 @@ typedef volatile int	sig_atomic_t;
 
 /* }================================================================== */
 
-#ifdef X68_XC
+#if defined(human68k)
 /*
 static inline int lua_numbertointeger( LUA_NUMBER n, LUA_INTEGER *p ) {
 	const LUA_INTEGER tmp = LUA_MININTEGER;
@@ -699,7 +691,7 @@ static inline int lua_numbertointeger( LUA_NUMBER n, LUA_INTEGER *p ) {
 #if !defined(lua_getlocaledecpoint)
 #define lua_getlocaledecpoint()		(localeconv()->decimal_point[0])
 #endif
-#ifdef X68_XC
+#if defined(human68k)
 #undef lua_getlocaledecpoint()
 #define lua_getlocaledecpoint()	('.')
 /* #define lua_getlocaledecpoint() (',') */

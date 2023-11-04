@@ -14,7 +14,7 @@
 #include <ctype.h>
 #include <float.h>
 #include <limits.h>
-#ifndef X68_XC
+#if !defined(human68k)
 #include <locale.h>
 #endif
 #include <math.h>
@@ -1875,4 +1875,3 @@ LUAMOD_API int luaopen_string (lua_State *L) {
   return 1;
 }
 
-

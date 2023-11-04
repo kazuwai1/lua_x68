@@ -11,7 +11,7 @@
 
 #include "lua.h"
 
-#ifndef X68_XC
+#if !defined(human68k)
 #include <errno.h>
 #include <locale.h>
 #else
@@ -389,8 +389,10 @@ static int os_setlocale (lua_State *L) {
      "numeric", "time", NULL};
   const char *l = luaL_optstring(L, 1, NULL);
   int op = luaL_checkoption(L, 2, "all", catnames);
-#ifndef X68_XC
+#if !defined(human68k)
   lua_pushstring(L, setlocale(cat[op], l));
+#else /* X68000 */
+  lua_pushnil(L); /* not support locale */
 #endif
   return 1;
 }
@@ -433,4 +435,3 @@ LUAMOD_API int luaopen_os (lua_State *L) {
   return 1;
 }
 
-

@@ -12,7 +12,7 @@
 #include "lua.h"
 
 #include <ctype.h>
-#ifndef X68_XC
+#if !defined(human68k)
 #include <errno.h>
 #else
 #include <error.h>
@@ -122,7 +122,7 @@ static int doargs(int argc, char* argv[])
  }
  if (version)
  {
-#ifndef X68_XC
+#if !defined(human68k)
   printf("%s\n",LUA_COPYRIGHT);
 #else
   printf("%s%s\n",LUA_COPYRIGHT, LUA_X68K_VERSION);
@@ -208,6 +208,9 @@ int main(int argc, char* argv[])
 {
  lua_State* L;
  int i=doargs(argc,argv);
+#if defined(human68k)
+  allmem();
+#endif
  argc-=i; argv+=i;
  if (argc<=0) usage("no input files given");
  L=luaL_newstate();

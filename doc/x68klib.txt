@@ -16,9 +16,9 @@ X680x0向けにいくつかの関数を実装しました。独自関数は名�
 　IOCSLIB の B_CUROFF() と同様です。
 ・x68k.locate( x, y )
 　X-BASIC の locate()と同様ですがカーソルスイッチの設定はできません。
-・ x68k.cls()
+・x68k.cls()
 　X-BASICの cls と同様です。
-・ x68k.color( n )
+・x68k.color( n )
 　X-BASICの color と同様です。
 ・x68k.vsync()
 　vsyncを一回待ちます。
@@ -32,7 +32,7 @@ X680x0向けにいくつかの関数を実装しました。独自関数は名�
   以下のように使用することで、dat にサンプリングデータを取得します。datは文字列型のデータです。
 　　dat = x68k.a_rec( size, rate )
 　size, rate は XCのa_rec()関数と同様です。
-・ x68k.a_stat() / x68k.a_end() / x68k.a_stop() / x68k.a_cont()
+・x68k.a_stat() / x68k.a_end() / x68k.a_stop() / x68k.a_cont()
 　それぞれ XC の a_stat() / a_end() / a_stop() / a_cont() と同様です。
 ・x68k.a_play( dat, size, rate, mode, length )
 　XC の a_play()と同様です。
@@ -137,8 +137,4 @@ X680x0向けにいくつかの関数を実装しました。独自関数は名�
 　X-BASIC の stick() と同様です。
 ・x68k.strig( no )
 　X-BASIC の strig() と同様です。
-
-
-
-
 

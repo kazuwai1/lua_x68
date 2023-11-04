@@ -14,7 +14,7 @@ CFLAGS= $(SYSCFLAGS) $(MYCFLAGS)
 LDFLAGS= $(SYSLDFLAGS) $(MYLDFLAGS)
 LIBS= $(SYSLIBS) $(MYLIBS)
 
-AR= lib
+AR= oar
 RANLIB=
 RM= rm -f
 UNAME= uname
@@ -29,7 +29,7 @@ MYLDFLAGS=
 MYLIBS=
 MYOBJS=
 
-LUA_A= lualib.l
+LUA_A= liblua.l
 CORE_O= lapi.o lcode.o lctype.o ldebug.o ldo.o ldump.o lfunc.o lgc.o llex.o lmem.o lobject.o lopcodes.o lparser.o lstate.o lstring.o ltable.o ltm.o lundump.o lzio.o
 CORE_O2= lvm.o
 LIB_O= lauxlib.o lbaselib.o lcorolib.o ldblib.o liolib.o lmathlib.o loadlib.o loslib.o lstrlib.o ltablib.o lutf8lib.o linit.o lx68lib.o lx68lib2.o
@@ -58,7 +58,8 @@ $(LUAC_T): $(LUAC_O) $(LUA_A)
 	$(CC) -o $@ $(LDFLAGS) $(LUAC_O) $(LUA_A) $(LIBS)
 
 $(LUA_A): $(BASE_O)
-	$(AR) /m 10000 /i indirect.x68  $@
+	$(AR) -c $@ $(BASE_O)
+
 llex.o:
 	$(CC) $(CFLAGS) -c llex.c
 

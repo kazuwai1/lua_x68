@@ -11,7 +11,7 @@
 
 #include "lua.h"
 
-#ifndef X68_XC
+#if !defined(human68k)
 #include <locale.h>
 #endif
 #include <math.h>

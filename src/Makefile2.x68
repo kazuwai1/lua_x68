@@ -10,11 +10,11 @@ R= $V.6
 
 # for compile...
 CC= gcc2
-CFLAGS= -O3 $(SYSCFLAGS) $(MYCFLAGS)
+CFLAGS= $(SYSCFLAGS) $(MYCFLAGS)
 LDFLAGS= $(SYSLDFLAGS) $(MYLDFLAGS)
 LIBS= $(SYSLIBS) $(MYLIBS)
 
-AR= lib
+AR= oar
 RANLIB=
 RM= rm -f
 UNAME= uname
@@ -23,15 +23,15 @@ SYSCFLAGS=
 SYSLDFLAGS=
 SYSLIBS=
 
-MYCFLAGS= -fomit-frame-pointer -fstrength-reduce -finline-functions -m68000
+MYCFLAGS= -O2 -fomit-frame-pointer -fstrength-reduce -finline-functions -m68000
 MYLDFLAGS= 
-MYLIBS= a:/lib/libgcc.a a:/lib/floatfnc.l a:/lib/clib.l a:/lib/gnulib.l
+MYLIBS= a:/lib/libgcc.a a:/lib/floatfnc.l a:/lib/clib.l a:/lib/iocslib.l a:/lib/baslib.l a:/lib/gnulib.l
 MYOBJS=
 
 LUA_A= lualib.l
 CORE_O= lapi.o lcode.o lctype.o ldebug.o ldo.o ldump.o lfunc.o lgc.o llex.o lmem.o lobject.o lopcodes.o lparser.o lstate.o lstring.o ltable.o ltm.o lundump.o lzio.o
 CORE_O2= lvm.o
-LIB_O= lauxlib.o lbaselib.o lcorolib.o ldblib.o liolib.o lmathlib.o loadlib.o loslib.o lstrlib.o ltablib.o lutf8lib.o linit.o
+LIB_O= lauxlib.o lbaselib.o lcorolib.o ldblib.o liolib.o lmathlib.o loadlib.o loslib.o lstrlib.o ltablib.o lutf8lib.o linit.o lx68lib.o lx68lib2.o
 BASE_O= $(CORE_O) $(CORE_O2) $(LIB_O) $(MYOBJS)
 
 LUA_T= lua.x
@@ -57,7 +57,8 @@ $(LUAC_T): $(LUAC_O) $(LUA_A)
 	$(CC) -o $@ $(LDFLAGS) $(LUAC_O) $(LUA_A) $(LIBS)
 
 $(LUA_A): $(BASE_O)
-	$(AR) /m 10000 /i indirect.x68  $@
+	$(AR) -c $@ $(BASE_O)
+
 llex.o:
 	$(CC) $(CFLAGS) -c llex.c
 
@@ -69,6 +70,9 @@ lcode.o:
 
 lvm.o: lvm.c
 	$(CC) $(CFLAGS) -cc1-stack=262144 -c lvm.c
+
+lx68lib2.o: lx68lib2.c
+	$(CC) -c lx68lib2.c
 
 .c.o:
 	$(CC) $(CFLAGS) -c $<

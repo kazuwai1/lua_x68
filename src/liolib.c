@@ -12,7 +12,7 @@
 #include "lua.h"
 
 #include <ctype.h>
-#ifndef X68_XC
+#if !defined(human68k)
 #include <errno.h>
 #include <locale.h>
 #else
@@ -831,4 +831,3 @@ LUAMOD_API int luaopen_io (lua_State *L) {
   return 1;
 }
 
-

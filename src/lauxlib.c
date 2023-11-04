@@ -11,9 +11,9 @@
 
 #include "lua.h"
 
-#ifndef X68_XC
+#if !defined(human68k)
 #include <errno.h>
-#else
+#else /* X68000 */
 #include <error.h>
 #endif
 #include <stdarg.h>
@@ -1115,4 +1115,3 @@ LUALIB_API void luaL_checkversion_ (lua_State *L, lua_Number ver, size_t sz) {
                   (LUAI_UACNUMBER)ver, (LUAI_UACNUMBER)v);
 }
 
-
