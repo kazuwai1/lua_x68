@@ -47,8 +47,8 @@ Lua 5.4.6 を X680x0向けにポーティングしてみました。X-BASICの�
 * ar: oar.x
 
 ## ビルド
-* "src"ディレクトリの中で "gmake -f Makefile2.x68" でビルドできます。gcc2.xxの利用を想定しています。
-* "Makefile.x68"はgcc1.xx環境向けです。
+* "src"ディレクトリの中で "gmake -f Makefile2.x68" でビルドできます。gcc2.xの利用を想定しています。
+* "Makefile.x68"はgcc1.x環境向けです。
 * IOCSLIB.Hのstruct INQUIRY構造体の記述がgccではエラーになる場合があります。その場合はlibcのcdecl.hの _ZEROARRAY および sys/scsi.h内の struct _inquiry の記述を参考にヘッダファイルを修正する必要があります
 
 ## 謝辞
