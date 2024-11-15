@@ -23,8 +23,10 @@ SYSCFLAGS=
 SYSLDFLAGS=
 SYSLIBS=
 
+#MYCFLAGS= -O2 -fomit-frame-pointer -fstrength-reduce -finline-functions -m68000 -I../include
 MYCFLAGS= -O2 -fomit-frame-pointer -fstrength-reduce -finline-functions -m68000
 MYLDFLAGS= 
+#MYLIBS= ../lib/editlinelib.l a:/lib/libgcc.a a:/lib/floatfnc.l a:/lib/clib.l a:/lib/iocslib.l a:/lib/doslib.l a:/lib/baslib.l a:/lib/gnulib.l
 MYLIBS= a:/lib/libgcc.a a:/lib/floatfnc.l a:/lib/clib.l a:/lib/iocslib.l a:/lib/baslib.l a:/lib/gnulib.l
 MYOBJS=
 
