@@ -12,7 +12,7 @@
 #include <stddef.h>
 
 #if defined(human68k)
-#define LUA_X68K_VERSION " (for X680x0 r4)"
+#define LUA_X68K_VERSION " (for x68k r5)"
 #define LUA_USE_X68KLIB
 #define LUA_USE_C89
 #define LUA_NOBUILTIN
@@ -273,6 +273,15 @@ typedef volatile int	sig_atomic_t;
 
 #endif
 
+
+/*
+** LUA_IGMARK is a mark to ignore all after it when building the
+** module name (e.g., used to build the luaopen_ function name).
+** Typically, the suffix after the mark is the module version,
+** as in "mod-v1.2.so".
+*/
+#define LUA_IGMARK		"-"
+
 /* }================================================================== */
 
 
@@ -441,7 +450,7 @@ typedef volatile int	sig_atomic_t;
   ((n) >= (LUA_NUMBER)(LUA_MININTEGER) && \
    (n) < -(LUA_NUMBER)(LUA_MININTEGER) && \
       (*(p) = (LUA_INTEGER)(n), 1))
-#else /* for X68000 */
+#else /* for x68k */
 #define lua_numbertointeger(n,p) \
   ((n) >= -2147483648.0 && \
    (n) < 2147483648.0 && \
@@ -502,6 +511,7 @@ typedef volatile int	sig_atomic_t;
 #error "numeric float type not defined"
 
 #endif					/* } */
+
 
 
 /*

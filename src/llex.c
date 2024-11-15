@@ -9,15 +9,21 @@
 
 #include "lprefix.h"
 
+#if !defined(human68k)
+
+#include <locale.h>
+#include <string.h>
 
 #include "lua.h"
 
-#if !defined(human68k)
-#include <locale.h>
-#endif
+#else
+
+#include "lua.h"
+
+/* #include <locale.h> */
 #include <string.h>
 
-/* #include "lua.h" */
+#endif
 
 #include "lctype.h"
 #include "ldebug.h"

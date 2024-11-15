@@ -9,18 +9,29 @@
 
 #include "lprefix.h"
 
-#include "lua.h"
-
 #if !defined(human68k)
+
 #include <locale.h>
-#endif
 #include <math.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-/* #include "lua.h" */
+#include "lua.h"
+
+#else	/* for x68k */
+
+#include "lua.h"
+
+/* #include <locale.h> */
+#include <math.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#endif
 
 #include "lctype.h"
 #include "ldebug.h"
@@ -545,7 +556,7 @@ const char *luaO_pushvfstring (lua_State *L, const char *fmt, va_list argp) {
   addstr2buff(&buff, fmt, strlen(fmt));  /* rest of 'fmt' */
   clearbuff(&buff);  /* empty buffer into the stack */
   lua_assert(buff.pushed == 1);
-  return svalue(s2v(L->top.p - 1));
+  return getstr(tsvalue(s2v(L->top.p - 1)));
 }
 
 

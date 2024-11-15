@@ -168,8 +168,11 @@ typedef LUAI_UACINT l_uacInt;
 #if !defined(l_noret)
 
 #if defined(__GNUC__)
-#define	l_noret	void
-/* #define l_noret		void __attribute__((noreturn)) */
+#if !defined(human68k)
+#define l_noret		void __attribute__((noreturn))
+#else	/* for x68k (gcc1.xx/gcc2.xx) */
+#define l_noret		void
+#endif
 #elif defined(_MSC_VER) && _MSC_VER >= 1200
 #define l_noret		void __declspec(noreturn)
 #else
@@ -379,4 +382,3 @@ typedef l_uint32 Instruction;
 #endif
 
 #endif
-

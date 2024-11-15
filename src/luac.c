@@ -9,19 +9,27 @@
 
 #include "lprefix.h"
 
-#include "lua.h"
+#if !defined(human68k)
 
 #include <ctype.h>
-#if !defined(human68k)
 #include <errno.h>
-#else
-#include <error.h>
-#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-/* #include "lua.h" */
+#include "lua.h"
+
+#else	/* for x68k */
+
+#include "lua.h"
+
+#include <ctype.h>
+#include <error.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#endif
 
 #include "lauxlib.h"
 

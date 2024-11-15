@@ -6,7 +6,7 @@ TO_MAN= lua.1 luac.1
 
 # Ver
 V= 5.4
-R= $V.6
+R= $V.7
 
 # for compile...
 CC= gcc2
