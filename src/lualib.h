@@ -47,6 +47,12 @@ LUAMOD_API int (luaopen_package) (lua_State *L);
 #ifdef LUA_USE_X68KLIB
 #define LUA_X68KNAME	"x68k"
 LUAMOD_API	int (luaopen_x68k) (lua_State *L);
+
+#define CJSON_MODNAME	"cjson"
+LUAMOD_API	int (luaopen_cjson) (lua_State *L);
+
+#define CJSONSAFE_MODNAME	"cjson.safe"
+LUAMOD_API	int (luaopen_cjson_safe) (lua_State *L);
 #endif
 
 /* open all previous libraries */

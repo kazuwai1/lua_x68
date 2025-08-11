@@ -480,7 +480,8 @@ static int handle_luainit (lua_State *L) {
 /* #include <readline/history.h> */
 #define lua_initreadline(L)	((void)L, rl_readline_name="lua")
 #define lua_readline(L,b,p)	((void)L, ((b)=readline(p)) != NULL)
-#define lua_saveline(L,line)	((void)L, add_history(line))
+/* #define lua_saveline(L,line)	((void)L, add_history(line)) */
+#define lua_saveline(L,line)	{ (void)L; (void)line; }
 #define lua_freeline(L,b)	((void)L, free(b))
 
 #endif /* LUA_USE_X68_EL */
@@ -528,10 +529,8 @@ static int incomplete (lua_State *L, int status) {
   if (status == LUA_ERRSYNTAX) {
     size_t lmsg;
     const char *msg = lua_tolstring(L, -1, &lmsg);
-    if (lmsg >= marklen && strcmp(msg + lmsg - marklen, EOFMARK) == 0) {
-      lua_pop(L, 1);
+    if (lmsg >= marklen && strcmp(msg + lmsg - marklen, EOFMARK) == 0)
       return 1;
-    }
   }
   return 0;  /* else... */
 }
@@ -546,9 +545,9 @@ static int pushline (lua_State *L, int firstline) {
   size_t l;
   const char *prmt = get_prompt(L, firstline);
   int readstatus = lua_readline(L, b, prmt);
-  if (readstatus == 0)
-    return 0;  /* no input (prompt will be popped by caller) */
   lua_pop(L, 1);  /* remove prompt */
+  if (readstatus == 0)
+    return 0;  /* no input */
   l = strlen(b);
   if (l > 0 && b[l-1] == '\n')  /* line ends with newline? */
     b[--l] = '\0';  /* remove it */
@@ -590,8 +589,9 @@ static int multiline (lua_State *L) {
     int status = luaL_loadbuffer(L, line, len, "=stdin");  /* try it */
     if (!incomplete(L, status) || !pushline(L, 0)) {
       lua_saveline(L, line);  /* keep history */
-      return status;  /* cannot or should not try to add continuation line */
+      return status;  /* should not or cannot try to add continuation line */
     }
+    lua_remove(L, -2);  /* remove error message (from incomplete line) */
     lua_pushliteral(L, "\n");  /* add newline... */
     lua_insert(L, -2);  /* ...between the two lines */
     lua_concat(L, 3);  /* join them */

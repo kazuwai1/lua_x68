@@ -52,6 +52,8 @@ static const luaL_Reg loadedlibs[] = {
   {LUA_DBLIBNAME, luaopen_debug},
 #ifdef LUA_USE_X68KLIB
   {LUA_X68KNAME, luaopen_x68k},
+  {CJSON_MODNAME, luaopen_cjson},
+  {CJSONSAFE_MODNAME, luaopen_cjson_safe},
 #endif
   {NULL, NULL}
 };
