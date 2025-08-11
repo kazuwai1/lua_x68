@@ -71,10 +71,9 @@ Lua 5.4.8 を X680x0向けにポーティングしてみました。X-BASICの�
 * gccでコンパイルする場合、IOCSLIB.Hのstruct INQUIRY構造体の記述が原因でエラーになる場合があります。その場合はlibcのcdecl.hの _ZEROARRAY および sys/scsi.h内の struct _inquiry の記述を参考にヘッダファイルを修正する必要があります
 
 ## 謝辞
-Lua for x68k への機能追加にあたって、MicroPython for X68k のソースコードを非常に参考にさせていただいております。
-lua-cjsonのビルドにx68k libcのisinf()/isnan()をt流用しています。
+* Lua for x68k への機能追加にあたって、MicroPython for X68k のソースコードを非常に参考にさせていただいております。
+* lua-cjsonのビルドにx68k libcのisinf()/isnan()をt流用しています。
 
 ## ライセンス
-Luaは下記のようにMITライセンスで配布されています。Lua for x68k向けの独自改変部分についても同様の扱いとします。  
-[Copyright © 1994–2023 Lua.org, PUC-Rio.](https://www.lua.org/license.html)
-lua-cjsonはMITののライセンスで配布されています。詳しくは[ここ](https://github.com/kazuwai1/lua_cjson_x68k/blob/main/LICENSE)を参照してください。
+* Luaは下記のようにMITライセンスで配布されています。Lua for x68k向けの独自改変部分についても同様の扱いとします。[Copyright © 1994–2023 Lua.org, PUC-Rio.](https://www.lua.org/license.html)
+* lua-cjsonはMITのライセンスで配布されています。詳しくは[ここ](https://github.com/kazuwai1/lua_cjson_x68k/blob/main/LICENSE)を参照してください。
