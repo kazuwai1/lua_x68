@@ -1,9 +1,15 @@
 # lua for x68k
-Lua 5.4.7 を X680x0向けにポーティングしてみました。X-BASICの一部の関数を取り込んだりしています。
+Lua 5.4.8 を X680x0向けにポーティングしてみました。X-BASICの一部の関数を取り込んだりしています。
 
 ## インストール
 ### とにかくインタプリタを使ってみたい人
-* "lua.x" と "luac.x"を環境変数PATHに含まれるディレクトリにコピー
+* "lua.x" と "luac.x"を環境変数PATHに含まれるディレクトリにコピーして lua.x を起動してください
+
+### lua-cjsonモジュールを使ってみたい人
+* luamodフォルダの中身を環境変数 LUA_PATH に含まれるディレクトリにコピーする
+* ( LUA_PATHの設定例 : LUA_PATH=;;A:\\luamod\\?.lua;A:\\luamod\\?.luac )
+* lua_cjsonのAPI関数については [このあたり](https://github.com/kazuwai1/lua_cjson_x68k/blob/main/README_orig.md)を参照してください
+
 ### LuaのC言語プログラムへの組み込みも試してみたい人
 上記に加えて以下のインストールを行ってください。
 * "lualib.l" を環境変数LIBで指定するディレクトリにコピー
@@ -24,6 +30,11 @@ Lua 5.4.7 を X680x0向けにポーティングしてみました。X-BASICの�
 
 ## X680x0向け独自拡張について
 "x68k.～"という関数でX-BASICのオーディオ・グラフィック・スプライト・マウス・ジョイスティックに関する処理を実装しています。詳細はdoc/x68klib.txtを参照してください。
+
+## r5-->r6の主な変更点
+* ソースコードのベースバージョンを5.4.8に変更しました
+* lua.xの行編集機能のうち、CTRL-P/CTRL-Nの動作が少しおかしかったのを修正しました
+* lua-cjson v2.14.0.1 を lua.x/luac.x から使えるように組み込みました。
 
 ## r4-->r5の主な修正点
 * ソースコードのベースバージョンを5.4.7に変更しました
@@ -56,12 +67,14 @@ Lua 5.4.7 を X680x0向けにポーティングしてみました。X-BASICの�
 
 ## ビルド
 * "src"ディレクトリの中で "gmake -f Makefile2.x68" でビルドできます。gcc2.xの利用を想定しています。
-* "Makefile.x68"はgcc1.x環境向けです。
+* "Makefile.x68"はgcc1.x環境向けです。r5以降はメンテしてないのでご注意ください。
 * gccでコンパイルする場合、IOCSLIB.Hのstruct INQUIRY構造体の記述が原因でエラーになる場合があります。その場合はlibcのcdecl.hの _ZEROARRAY および sys/scsi.h内の struct _inquiry の記述を参考にヘッダファイルを修正する必要があります
 
 ## 謝辞
 Lua for x68k への機能追加にあたって、MicroPython for X68k のソースコードを非常に参考にさせていただいております。
+lua-cjsonのビルドにx68k libcのisinf()/isnan()をt流用しています。
 
 ## ライセンス
 Luaは下記のようにMITライセンスで配布されています。Lua for x68k向けの独自改変部分についても同様の扱いとします。  
 [Copyright © 1994–2023 Lua.org, PUC-Rio.](https://www.lua.org/license.html)
+lua-cjsonはMITののライセンスで配布されています。詳しくは[ここ](https://github.com/kazuwai1/lua_cjson_x68k/blob/main/LICENSE)を参照してください。
