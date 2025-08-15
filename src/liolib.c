@@ -84,6 +84,20 @@ static int l_checkmode (const char *mode) {
   (m[1] == '\0' || ((m[1] == 'b' || m[1] == 't') && m[2] == '\0')))
 #endif
 
+#elif defined(human68k)	/* }{ */
+
+extern int pclose(FILE *);
+extern FILE * popen(const char *, const char *);
+
+#define l_popen(L,c,m)		(popen(c,m))
+#define l_pclose(L,file)	(pclose(file))
+
+#if !defined(l_checkmodep)
+/* Windows accepts "[rw][bt]?" as valid modes */
+#define l_checkmodep(m)	((m[0] == 'r' || m[0] == 'w') && \
+  (m[1] == '\0' || ((m[1] == 'b' || m[1] == 't') && m[2] == '\0')))
+#endif
+
 #else				/* }{ */
 
 /* ISO C definitions */
