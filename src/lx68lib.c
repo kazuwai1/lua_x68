@@ -22,7 +22,7 @@
 #include <SPRITE.H>
 #include <STICK.h>
 
-/* porting popen()/pclose() from x68k's libc, for io.popen()/io.pclose() */
+/* porting popen()/pclose() from x68k's libc, for io.popen() */
 #include <stdio.h>
 /* #include <errno.h> */
 /* #include <stdlib.h> */
