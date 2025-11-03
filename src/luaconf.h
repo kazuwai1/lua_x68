@@ -12,7 +12,7 @@
 #include <stddef.h>
 
 #if defined(human68k)
-#define LUA_X68K_VERSION " (for x68k r6)"
+#define LUA_X68K_VERSION " (for x68k r7)"
 #define LUA_USE_X68KLIB
 #define LUA_USE_C89
 #define LUA_NOBUILTIN
