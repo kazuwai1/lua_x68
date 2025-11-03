@@ -476,6 +476,8 @@ static int handle_luainit (lua_State *L) {
 
 #else /* defined LUA_USE_X68_EL */
 
+#if !defined(LUA_USE_X68_HISTORY)
+/* using editline library for x68 */
 #include "editline.h"
 /* #include <readline/history.h> */
 #define lua_initreadline(L)	((void)L, rl_readline_name="lua")
@@ -484,6 +486,15 @@ static int handle_luainit (lua_State *L) {
 #define lua_saveline(L,line)	{ (void)L; (void)line; }
 #define lua_freeline(L,b)	((void)L, free(b))
 
+#else /* defined LUA_USE_X68_HISTORY */
+/* using HISTORY.X's editing */
+extern char *x68_readline(const char *prompt);
+#define lua_initreadline(L)  ((void)L)
+#define lua_readline(L,b,p)	((void)L, ((b)=x68_readline(p)) != NULL)
+#define lua_saveline(L,line)	{ (void)L; (void)line; }
+#define lua_freeline(L,b)	{ (void)L; (void)b; }
+
+#endif /* LUA_USE_X68_HISTORY */
 #endif /* LUA_USE_X68_EL */
 
 #else				/* }{ */

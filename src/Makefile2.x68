@@ -1,8 +1,10 @@
 # for INSTALL
 TO_BIN= lua.x luac.x
 TO_INC= lua.h luaconf.h lualib.h lauxlib.h lua.hpp
-TO_LIB= liblua.a
-TO_MAN= lua.1 luac.1
+TO_LIB= lualib.l
+BPATH= A:\\USRBIN
+LPATH= A:\\LIB
+IPATH= A:\\INCLUDE
 
 # Ver
 V= 5.4
@@ -25,8 +27,8 @@ SYSLIBS=
 
 MYCFLAGS= -O2 -fomit-frame-pointer -fstrength-reduce -finline-functions -m68000 -I../include
 MYLDFLAGS= 
-MYLIBS= ../lib/editlinelib.l a:/lib/libgcc.a a:/lib/floatfnc.l a:/lib/clib.l a:/lib/iocslib.l a:/lib/doslib.l a:/lib/baslib.l a:/lib/gnulib.l
-#MYLIBS= a:/lib/libgcc.a a:/lib/floatfnc.l a:/lib/clib.l a:/lib/iocslib.l a:/lib/baslib.l a:/lib/gnulib.l
+#MYLIBS= ../lib/editlinelib.l a:/lib/libgcc.a a:/lib/floatfnc.l a:/lib/clib.l a:/lib/iocslib.l a:/lib/doslib.l a:/lib/baslib.l a:/lib/gnulib.l
+MYLIBS= a:/lib/libgcc.a a:/lib/floatfnc.l a:/lib/clib.l a:/lib/iocslib.l a:/lib/doslib.l a:/lib/baslib.l a:/lib/gnulib.l
 MYOBJS=
 
 LUA_A= lualib.l
@@ -75,6 +77,16 @@ lvm.o: lvm.c
 
 lx68lib2.o: lx68lib2.c
 	$(CC) -c lx68lib2.c
+
+install:
+	command copy lua.x $(BPATH)
+	command copy luac.x $(BPATH)
+	command copy lualib.l $(LPATH)
+	command copy lua.h $(IPATH)
+	command copy luaconf.h $(IPATH)
+	command copy lualib.h $(IPATH)
+	command copy lauxlib.h $(IPATH)
+	command copy lua.hpp $(IPATH)
 
 .c.o:
 	$(CC) $(CFLAGS) -c $<

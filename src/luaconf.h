@@ -18,6 +18,7 @@
 #define LUA_NOBUILTIN
 #define LUA_USE_READLINE
 #define LUA_USE_X68_EL
+#define LUA_USE_X68_HISTORY
 
 typedef volatile int	sig_atomic_t;
 

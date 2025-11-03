@@ -14,6 +14,7 @@
 #include "lualib.h"
 
 #include <IOCSLIB.H>
+#include <DOSLIB.H>
 
 #include <BASIC0.H>
 #include <AUDIO.H>
@@ -22,7 +23,7 @@
 #include <SPRITE.H>
 #include <STICK.h>
 
-/* porting popen()/pclose() from x68k's libc, for io.popen() */
+/* porting popen()/pclose() from x68k's libc, for io.popen()/io.pclose() */
 #include <stdio.h>
 /* #include <errno.h> */
 /* #include <stdlib.h> */
@@ -160,6 +161,43 @@ FILE *popen (const char *command, const char *mode)
     /* fp を返す */
     return fp;
 }
+
+#if defined(LUA_USE_X68_HISTORY)
+/* x68_readline() : using HISTORY.X's editing */
+static struct INPPTR cmdlinebuf;
+static int last_readline_status = 0;
+
+char * x68_readline( char * prompt ) {
+	char *chkptr, c;
+
+	if ( last_readline_status == 1 )
+		return NULL;
+
+	if ( isatty(STDIN) ) {	/* tty */
+		PRINT(prompt);
+
+		cmdlinebuf.max = 255;
+		cmdlinebuf.buffer[0] = 0;
+		GETS( &cmdlinebuf );
+		PRINT("\n");
+
+		/* check ctrl-z */
+		chkptr = cmdlinebuf.buffer;
+		while ( (c = *chkptr++) != '\0' ) {
+			if (c == 26) {
+				last_readline_status = 1;	/* find ctrl-Z */
+				*(chkptr-1) = '\0';
+				break;
+			}
+		}
+		return cmdlinebuf.buffer;
+	} else {	/* not tty */
+		cmdlinebuf.buffer[0] = 0;
+		return fgets( cmdlinebuf.buffer, 255, stdin );
+	}
+}
+#endif
+
 /* memo: C's return value is number of Lua's return value */
 
 #ifdef LUA_USE_X68KLIB
