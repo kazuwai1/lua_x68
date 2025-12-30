@@ -1,6 +1,6 @@
 # lua-5.4 for x68k(XC lib)
 Lua 5.4.8 を X680x0向けにポーティングしてみました。X-BASICの一部の関数を取り込んだりしています。  
-※lua for x68kのリリースは r7までが5.4ベース、[r8以降が5.5ベース](https://github.com/kazuwai1/lua550_x68k_xc)になります。
+※lua for x68kのリリースは r7までが5.4ベース、[r8以降が5.5ベース](https://github.com/kazuwai1/lua55_x68k_xc)になります。
 
 ## インストール
 ### とにかくインタプリタを使ってみたい人
