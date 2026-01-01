@@ -10,7 +10,8 @@ Lua 5.4.8 を X680x0向けにポーティングしてみました。X-BASICの�
 * 本環境のluaの実行ファイルは lua_cjsonを組み込み済みですのでいきなり cjson.decode()やcjson.encode()が使えます
 * cjson.utilを使うためには以下の手順を実施しておく必要があります
     * luamodフォルダの中身を環境変数 LUA_PATH に含まれるディレクトリにコピーする
-    * ( LUA_PATHの設定例 : LUA_PATH=;;A:\\luamod\\?.lua;A:\\luamod\\?.luac )* lua_cjsonのAPI関数については [このあたり](https://github.com/kazuwai1/lua_cjson_x68k/blob/main/README_orig.md)や[このあたり](https://github.com/kazuwai1/lua_cjson_x68k/blob/main/manual.adoc)を参照してください
+    * ( LUA_PATHの設定例 : LUA_PATH=;;A:\\luamod\\?.lua;A:\\luamod\\?.luac )
+* lua_cjsonのAPI関数については [このあたり](https://github.com/kazuwai1/lua_cjson_x68k/blob/main/README_orig.md)や[このあたり](https://github.com/kazuwai1/lua_cjson_x68k/blob/main/manual.adoc)を参照してください
 
 ### LuaのC言語プログラムへの組み込みも試してみたい人
 上記に加えて以下のインストールを行ってください。
